@@ -16,7 +16,9 @@ public class Main {
                         count++;
                     }
                 }
-                updateMap(count);
+                synchronized (sizeToFreq) {
+                    updateMap(count);
+                }
             });
             thread.start();
         }
@@ -32,7 +34,7 @@ public class Main {
         return route.toString();
     }
 
-    public static synchronized void updateMap(int num) {
+    public static void updateMap(int num) {
         sizeToFreq.put(num, sizeToFreq.getOrDefault(num, 0) + 1);
     }
 
